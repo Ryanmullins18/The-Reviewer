@@ -36,7 +36,7 @@ const main = async () => {
 
         
             console.log('creating reviews')
-        const [review1, review2, review3, review4] = await Promise.all(
+        const [review1, review2, review3, review4, review5] = await Promise.all(
             [...Array(5)].map((_,i) => prisma.reviews.create({
                     data: {
                         score: faker.number.float({ multipleOf: 0.50, min: 0, max:5 }),
@@ -52,7 +52,7 @@ const main = async () => {
 
         console.log('creating comments')
         const [comment1, comment2, comment3, comment4] = await Promise.all(
-            [...Array(5)].map((_,i) => prisma.comments.create({
+            [...Array(4)].map((_,i) => prisma.comments.create({
                 data: {
                     comment: faker.lorem.sentences({min: 1, max: 3}),
                     author_id: users[i].id,
