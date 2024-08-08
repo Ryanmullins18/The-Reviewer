@@ -24,9 +24,6 @@ describe('/api/auth', ()=> {
 
             expect(res.status).toBe(201)
         });
-        
-        // test("returns token when successful", ()=> {})
-
-        // test("", ()=> {});
+     
     });
-})
+});
