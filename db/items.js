@@ -6,10 +6,8 @@ const createItems = (itemData) => {
   });
 };
 
-const getAllItems = (user_id) => {
-  return client.items.findMany({
-    where: { user_id },
-  });
+const getAllItems = () => {
+  return client.items.findMany();
 };
 
 const getItemById = (id) => {

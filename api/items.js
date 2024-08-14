@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const {verifyUser} = require('./auth/utils');
 const {getAllItems, getItemById, updateItem, deleteItem} = require('../db/items');
 
 router.get('/', async(req,res)=>{
@@ -21,7 +22,7 @@ router.get("/:id", async (req, res) => {
   });
 
 //api/update/:id
-  router.put("/:id", async (req, res, next) => {
+  router.put("/:id", verifyUser, async (req, res, next) => {
     try {
       const { name, description } = req.body;
       const item = await updateItem(req.params.id, {
@@ -35,7 +36,7 @@ router.get("/:id", async (req, res) => {
     }
   });
 //api/delete/:id
-  router.delete("/:id", async (req, res, next) => {
+  router.delete("/:id", verifyUser, async (req, res, next) => {
     try {
       const item = await deleteItem(req.params.id);
   

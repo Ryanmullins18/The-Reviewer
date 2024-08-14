@@ -6,10 +6,16 @@ const createUser = (userData) => {
     });
 };
 
-const findUserByUsername = (username) => {
+const findUserByid = (id) => {
     return prisma.users.findUnique({
-        where: {username},
-    })
-}
+        where: {id: id},
+        include: {
+            reviews: true,
+            comments: true,
+            }
+          })
+    };
 
-module.exports = { createUser, findUserByUsername };
+
+
+module.exports = { createUser, findUserByid };

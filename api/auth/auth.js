@@ -10,7 +10,7 @@ const authRouter = express.Router();
 
 //path /api/auth
 
-authRouter.post('/register', checkUserData, checkUser, async (req,res)=>{
+authRouter.post('/register', async (req,res)=>{
     try {
         const {username, password} = req.body;
 

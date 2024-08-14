@@ -1,5 +1,5 @@
 const express = require('express');
-const { requireUser } = require("./auth/utils");
+const { verifyUser } = require("./auth/utils");
 
 const router = express.Router()
 
@@ -7,9 +7,12 @@ const router = express.Router()
 //path /api/auth
 router.use("/auth", require("./auth/auth"));
 
-router.use("/items", require("./items"));
+router.use("/item", require("./items"));
 
-router.use("/update", requireUser, require("./items"))
+router.use("/update", verifyUser, require("./items"))
 
-router.use("/delete", requireUser, require("./items"))
+router.use("/delete", verifyUser, require("./items"))
+
+
+router.use("/profile", require("./users"));
 module.exports = router;
