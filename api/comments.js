@@ -4,10 +4,10 @@ const {deleteComment, updateComment,createComment } = require('../db/comments');
 const {verifyUser} = require('./auth/utils');
 
 
-router.post("/create", verifyUser, async (req, res, next) => {
+router.post("/", verifyUser, async (req, res, next) => {
     try {
       const newComment  = await createComment({
-        ...req.body, id: req.reviews.id 
+        ...req.body, id: req.params.id 
       })
   
       res.send({ newComment });
@@ -26,7 +26,7 @@ router.post("/create", verifyUser, async (req, res, next) => {
   });
 
 //api/comments/:id
-  router.put("/:id", verifyUser, async (req, res, next) => {
+  router.put("/:id",  async (req, res, next) => {
     try {
       const { comment } = req.body;
       const commentUp = await updateComment(req.params.id,

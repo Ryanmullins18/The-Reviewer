@@ -2,10 +2,26 @@ const express = require('express');
 const router = express.Router();
 const {updateReview, deleteReview, createReview, getAllReviews } = require('../db/reviews');
 const {verifyUser} = require('./auth/utils');
+const client = require('../db/index')
 
-router.post("/create", verifyUser, async(req, res, next)=>{
-
-})
+router.post("/:item_id", async(req, res)=>{
+  try {
+    const {score, txt} = req.body;
+    const newReview  = await client.reviews.create({
+     data:{
+       score,
+       txt,
+        item_id: req.params.id,
+        user_id:req.user.id
+     }
+    })
+    
+    res.status(200).send({newReview});
+  }  catch (error) {
+    console.log(error)
+    res.status(500).send({error, message: "no good"})
+   }
+});
 
 //works
 router.get('/', async(req,res)=>{

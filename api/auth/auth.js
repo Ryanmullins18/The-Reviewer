@@ -2,9 +2,8 @@ const express = require('express');
 const bcrypt = require('bcrypt')
 const jwt= require('jsonwebtoken')
 const {createUser} = require('../../db/users')
-const {findUserByUsername} = require('../../db/users')
-const {checkUserData, checkUser} = require('./utils')
 const client = require('../../db/index')
+
 
 const authRouter = express.Router();
 
@@ -20,7 +19,7 @@ authRouter.post('/register', async (req,res)=>{
             username, password: hashPass
         })
         const token = jwt.sign({id:user.id},
-            process.env.JWT || "super secret"
+            process.env.JWT || "Super secret super safe"
         );
         res.status(201).send({token});
         
@@ -51,7 +50,7 @@ authRouter.post("/login", async (req, res, next) => {
   
       
       const token = jwt.sign({ id: user.id }, 
-        process.env.JWT || "super secret");
+        process.env.JWT || "super secret super safe");
   
       res.send({ token });
     } catch (error) {

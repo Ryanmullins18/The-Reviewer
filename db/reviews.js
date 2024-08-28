@@ -1,10 +1,11 @@
 const client = require("./index");
 
 const createReview = (reviewData) => {
-  return prisma.reviews.create({
+  return client.reviews.create({
     data: reviewData,
   });
 };
+
 const getAllReviews = () => {
   return client.reviews.findMany({
     include:{

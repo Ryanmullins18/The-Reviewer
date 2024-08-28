@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {verifyUser} = require('./auth/utils');
-const {getAllItems, getItemById, updateItem, deleteItem} = require('../db/items');
+const {getAllItems, getItemById} = require('../db/items');
 
 //works
 router.get('/', async(req,res)=>{
