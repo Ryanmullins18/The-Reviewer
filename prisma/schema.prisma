@@ -37,6 +37,7 @@ model reviews {
   item_id String
   item items @relation(fields: [item_id], references: [id])
   comments comments[]
+ 
 }
 
 
@@ -47,5 +48,5 @@ model comments {
   author_id String 
   author users @relation(fields: [author_id], references: [id])
   review_id String
-  review reviews @relation(fields: [review_id], references: [id])
+  review reviews @relation(fields: [review_id], references: [id],onDelete: Cascade )
 }

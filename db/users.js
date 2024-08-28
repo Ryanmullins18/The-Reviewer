@@ -1,13 +1,17 @@
-const prisma = require('./index')
+const client = require('./index')
 
 const createUser = (userData) => {
-    return prisma.users.create({
+    return client.users.create({
         data: userData
     });
 };
 
+const getAllUsers = () => {
+    return client.users.findMany();
+  };
+
 const findUserByid = (id) => {
-    return prisma.users.findUnique({
+    return client.users.findUnique({
         where: {id: id},
         include: {
             reviews: true,
@@ -16,6 +20,4 @@ const findUserByid = (id) => {
           })
     };
 
-
-
-module.exports = { createUser, findUserByid };
+module.exports = { createUser, findUserByid, getAllUsers };

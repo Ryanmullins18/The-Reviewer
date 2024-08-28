@@ -1,4 +1,18 @@
-  
+const client = require("./index");
+
+const createReview = (reviewData) => {
+  return prisma.reviews.create({
+    data: reviewData,
+  });
+};
+const getAllReviews = () => {
+  return client.reviews.findMany({
+    include:{
+      comments: true,
+    },
+  });
+};
+
   const updateReview = (id, reviewData) => {
     return client.reviews.update({
       where: { id: id },
@@ -7,16 +21,16 @@
   };
   
   const deleteReview = async (id) => {
-    const review = await getReviewById(id);
-    if (review) {
       return client.reviews.delete({
         where: { id: id },
+          
       });
-    }
-    return;
+   
   };
   
   module.exports = {
     updateReview,
+    getAllReviews,
     deleteReview,
+    createReview
   }

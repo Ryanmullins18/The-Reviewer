@@ -7,12 +7,11 @@ const router = express.Router()
 //path /api/auth
 router.use("/auth", require("./auth/auth"));
 
-router.use("/item", require("./items"));
+router.use("/items", require("./items"));
 
-router.use("/update", verifyUser, require("./items"))
+router.use("/reviews", verifyUser, require("./reviews"));
 
-router.use("/delete", verifyUser, require("./items"))
-
+router.use("/comments", verifyUser, require("./comments"));
 
 router.use("/profile", require("./users"));
 module.exports = router;

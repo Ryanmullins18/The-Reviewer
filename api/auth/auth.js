@@ -51,7 +51,7 @@ authRouter.post("/login", async (req, res, next) => {
   
       
       const token = jwt.sign({ id: user.id }, 
-        process.env.JWT || "some random string");
+        process.env.JWT || "super secret");
   
       res.send({ token });
     } catch (error) {

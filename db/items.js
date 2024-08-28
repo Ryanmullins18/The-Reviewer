@@ -7,7 +7,15 @@ const createItems = (itemData) => {
 };
 
 const getAllItems = () => {
-  return client.items.findMany();
+  return client.items.findMany({
+    include:{
+      reviews: {
+        take: -1
+      }
+    },
+    
+  },
+  );
 };
 
 const getItemById = (id) => {
@@ -28,10 +36,13 @@ const updateItem = (id, itemData) => {
 };
 
 const deleteItem = async (id) => {
+  // console.log(id)
   const item = await getItemById(id);
+  // console.log(item)
   if (item) {
+    // console.log("hello world")
     return client.items.delete({
-      where: { id: id },
+      where: { id },
     });
   }
   return;
