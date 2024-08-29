@@ -26,5 +26,6 @@ const updateComment = (id, commentData) => {
   module.exports = {
     deleteComment,
     updateComment,
-    createComment
+    createComment,
+    getAllComments
   }

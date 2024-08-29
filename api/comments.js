@@ -1,36 +1,44 @@
 const express = require('express');
 const router = express.Router();
-const {deleteComment, updateComment,createComment } = require('../db/comments');
+const {deleteComment, updateComment,createComment, getAllComments } = require('../db/comments');
 const {verifyUser} = require('./auth/utils');
+const client = require('../db/index')
 
+//works
+router.post("/:id", async(req, res)=>{
+  try {
+    const {comment} = req.body;
+    const newReview  = await client.comments.create({
+     data: {
+      comment,
+      review_id: req.params.id,
+      author_id:req.user.id
+     }
+    })
+    
+    res.status(200).send({newReview});
+  }  catch (error) {
+    console.log(error)
+    res.status(500).send({error, message: "no good"})
+   }
+});
 
-router.post("/", verifyUser, async (req, res, next) => {
-    try {
-      const newComment  = await createComment({
-        ...req.body, id: req.params.id 
-      })
-  
-      res.send({ newComment });
-    } catch ({ error }) {
-      next();
-    }
-  });
-
+//works
   router.get('/', async(req,res)=>{
     try {
-        const comments = await getAllReviews();
-        res.send({reviews});
+        const comments = await getAllComments();
+        res.send({comments});
     } catch (error) {
-     res.status(500).send({error, message: "Unable to get items"})
+     res.status(500).send({error, message: "Unable to get comments"})
     }
   });
 
-//api/comments/:id
+//api/comments/:id //works
   router.put("/:id",  async (req, res, next) => {
     try {
       const { comment } = req.body;
-      const commentUp = await updateComment(req.params.id,
-       comment
+      const commentUp = await updateComment(req.params.id,{comment}
+       
       );
   
       res.send({ commentUp });
@@ -38,12 +46,12 @@ router.post("/", verifyUser, async (req, res, next) => {
       next({ name, message });
     }
   });
-//api/comments/:id
+//api/comments/:id //works
   router.delete("/:id", verifyUser, async (req, res, next) => {
     try {
       const comment = await deleteComment(req.params.id);
   
-      res.send({ comment });
+      res.send("comment deleted");
     } catch ({ name, message }) {
       next({ name, message });
     }

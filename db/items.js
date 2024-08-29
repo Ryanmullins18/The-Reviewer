@@ -12,8 +12,8 @@ const getAllItems = () => {
       reviews: {
         take: -1
       }
+      
     },
-    
   },
   );
 };
