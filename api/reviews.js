@@ -4,12 +4,13 @@ const {updateReview, deleteReview, createReview, getAllReviews } = require('../d
 const {verifyUser} = require('./auth/utils');
 const client = require('../db/index')
 
+
 router.post("/:id", async(req, res)=>{
   try {
     const {score, txt} = req.body;
     const newReview  = await client.reviews.create({
      data: {
-      score,
+      score:parseFloat(score),
       txt,
       item_id: req.params.id,
       user_id:req.user.id

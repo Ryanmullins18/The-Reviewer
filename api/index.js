@@ -20,7 +20,7 @@ router.use(async (req, res, next) => {
       try {
         const { id } = jwt.verify(
           token,
-          process.env.JWT || "Super secret super safe"
+          process.env.JWT || "super secret super safe"
         );
         //   if id is successfully made, set req.user
         if (id) {
@@ -56,5 +56,6 @@ router.use("/reviews", verifyUser, require("./reviews"));
 
 router.use("/comments", verifyUser, require("./comments"));
 
-router.use("/profile", require("./users"));
+const usersRouter = require("./users");
+router.use("/users", usersRouter);
 module.exports = router;

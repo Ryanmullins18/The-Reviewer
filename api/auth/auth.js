@@ -19,7 +19,7 @@ authRouter.post('/register', async (req,res)=>{
             username, password: hashPass
         })
         const token = jwt.sign({id:user.id},
-            process.env.JWT || "Super secret super safe"
+            process.env.JWT || "super secret super safe"
         );
         res.status(201).send({token});
         
