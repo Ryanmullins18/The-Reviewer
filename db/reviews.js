@@ -14,6 +14,16 @@ const getAllReviews = () => {
   });
 };
 
+const getReviewById = (id) => {
+  return client.reviews.findUnique({
+    where: { id: id },
+    include: {
+        comments: true,
+
+    }
+  });
+};
+
   const updateReview = (id, reviewData) => {
     return client.reviews.update({
       where: { id: id },
@@ -33,5 +43,6 @@ const getAllReviews = () => {
     updateReview,
     getAllReviews,
     deleteReview,
-    createReview
+    createReview,
+    getReviewById
   }

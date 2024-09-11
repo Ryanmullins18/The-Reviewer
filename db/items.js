@@ -22,7 +22,7 @@ const getItemById = (id) => {
   return client.items.findUnique({
     where: { id: id },
     include: {
-        reviews: true,
+        reviews: {include: {comments: true}},
     }
   });
 };

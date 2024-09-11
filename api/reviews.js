@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {updateReview, deleteReview, createReview, getAllReviews } = require('../db/reviews');
+const {updateReview, deleteReview, createReview, getAllReviews, getReviewById } = require('../db/reviews');
 const {verifyUser} = require('./auth/utils');
 const client = require('../db/index')
 
@@ -24,6 +24,14 @@ router.post("/:id", async(req, res)=>{
    }
 });
 
+router.get("/:id", async (req, res) => {
+  try {
+    const review = await getReviewById(req.params.id);
+    res.send({ item });
+  } catch (error) {
+      res.status(500).send({error, message: "Unable to get item"})
+     }
+});
 //works
 router.get('/', async(req,res)=>{
   try {
@@ -31,7 +39,7 @@ router.get('/', async(req,res)=>{
       res.send({reviews});
   } catch (error) {
     console.log(error)
-   res.status(500).send({error, message: "Unable to get items"})
+   res.status(500).send({error, message: "Unable to get reviews"})
   }
 });
 //api/reviews/:id //works
@@ -40,7 +48,7 @@ router.get('/', async(req,res)=>{
       const { txt, score } = req.body;
       const review = await updateReview(req.params.id, {
         txt,
-        score
+        score:parseFloat(score),
       });
   
       res.send({ review });
@@ -52,9 +60,9 @@ router.get('/', async(req,res)=>{
 //api/reviews/:id //works
   router.delete("/:id", async (req, res, next) => {
     try {
-      await deleteReview(req.params.id);
+      const review= await deleteReview(req.params.id);
   
-      res.sendStatus(204)
+      res.send({review})
     } catch (error) {
       console.log(error)
       next();

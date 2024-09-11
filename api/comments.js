@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {deleteComment, updateComment,createComment, getAllComments } = require('../db/comments');
+const {getReviewById } = require('../db/reviews');
 const {verifyUser} = require('./auth/utils');
 const client = require('../db/index')
 
@@ -8,15 +9,15 @@ const client = require('../db/index')
 router.post("/:id", async(req, res)=>{
   try {
     const {comment} = req.body;
-    const newReview  = await client.comments.create({
+    const newComment  = await client.comments.create({
      data: {
       comment,
       review_id: req.params.id,
       author_id:req.user.id
      }
     })
-    
-    res.status(200).send({newReview});
+    const review = await getReviewById(req.params.id);
+    res.status(200).send({newComment, review});
   }  catch (error) {
     console.log(error)
     res.status(500).send({error, message: "no good"})
