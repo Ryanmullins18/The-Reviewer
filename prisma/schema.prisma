@@ -24,6 +24,7 @@ model users {
 model items {
   id      String @id @default(uuid())
   name String
+  img_url String
   description String 
   reviews reviews[]
 }
@@ -37,7 +38,6 @@ model reviews {
   item_id String
   item items @relation(fields: [item_id], references: [id])
   comments comments[]
- 
 }
 
 
