@@ -53,7 +53,7 @@ router.use("/auth", require("./auth/auth"));
 router.use("/items", require("./items"));
 
 router.use("/reviews", require("./reviews"));
-router.use("users/reviews", verifyUser, require("./reviews"));
+
 
 router.use("/comments", require("./comments"));
 

@@ -7,20 +7,7 @@ function verifyUser(req, res, next) {
   }
   next();
 }
-// function verifyUser(req, res, next) {
-//   const auth = req.header("Authorization");
 
-//   if (!auth) {
-//     return res.status(400).send("You must provide a token");
-//   }
-//   try {
-//     const { id } = jwt.verify(auth, process.env.JWT || "super secret super safe");
-//     next();
-//   } catch (error) {
-//     console.log(error);
-//     res.status(400).send("Token could not be verified");
-//   }
-// }
 
 
 function checkUserComment(){
