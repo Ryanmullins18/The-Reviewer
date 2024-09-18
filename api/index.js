@@ -52,10 +52,10 @@ router.use("/auth", require("./auth/auth"));
 
 router.use("/items", require("./items"));
 
-router.use("/reviews", verifyUser, require("./reviews"));
+router.use("/reviews", require("./reviews"));
 router.use("users/reviews", verifyUser, require("./reviews"));
 
-router.use("/comments", verifyUser, require("./comments"));
+router.use("/comments", require("./comments"));
 
 const usersRouter = require("./users");
 router.use("/users", usersRouter);

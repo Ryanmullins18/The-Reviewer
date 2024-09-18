@@ -10,6 +10,12 @@ const createComment = (commentData) => {
     return client.comments.findMany();
   };
 
+  const getCommentById = (id) => {
+    return client.comments.findUnique({
+      where: { id: id },
+    });
+  };
+
 const updateComment = (id, commentData) => {
     return client.comments.update({
       where: { id: id },
@@ -27,5 +33,6 @@ const updateComment = (id, commentData) => {
     deleteComment,
     updateComment,
     createComment,
-    getAllComments
+    getAllComments,
+    getCommentById
   }

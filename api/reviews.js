@@ -20,16 +20,16 @@ router.post("/:id", async(req, res)=>{
     res.status(200).send({newReview});
   }  catch (error) {
     console.log(error)
-    res.status(500).send({error, message: "no good"})
+    res.status(500).send({error, message: "Unable to create review"})
    }
 });
 
 router.get("/:id", async (req, res) => {
   try {
     const review = await getReviewById(req.params.id);
-    res.send({ item });
+    res.send({ review });
   } catch (error) {
-      res.status(500).send({error, message: "Unable to get item"})
+      res.status(500).send({error, message: "Unable to get review"})
      }
 });
 //works
@@ -43,7 +43,7 @@ router.get('/', async(req,res)=>{
   }
 });
 //api/reviews/:id //works
-  router.put("/:id", verifyUser, async (req, res, next) => {
+  router.put("/:id", async (req, res, next) => {
     try {
       const { txt, score } = req.body;
       const review = await updateReview(req.params.id, {

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {deleteComment, updateComment,createComment, getAllComments } = require('../db/comments');
+const {deleteComment, updateComment, getAllComments, getCommentById } = require('../db/comments');
 const {getReviewById } = require('../db/reviews');
 const {verifyUser} = require('./auth/utils');
 const client = require('../db/index')
@@ -23,7 +23,14 @@ router.post("/:id", async(req, res)=>{
     res.status(500).send({error, message: "no good"})
    }
 });
-
+router.get("/:id", async (req, res) => {
+  try {
+    const comment = await getCommentById(req.params.id);
+    res.send({ comment });
+  } catch (error) {
+      res.status(500).send({error, message: "Unable to get comment"})
+     }
+});
 //works
   router.get('/', async(req,res)=>{
     try {
